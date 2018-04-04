@@ -12,6 +12,7 @@
 		735405792074966C005F0ECC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735405772074966C005F0ECC /* Main.storyboard */; };
 		7354057B2074966C005F0ECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7354057A2074966C005F0ECC /* Assets.xcassets */; };
 		7354057E2074966C005F0ECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7354057C2074966C005F0ECC /* LaunchScreen.storyboard */; };
+		7354058720749A38005F0ECC /* LocationServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354058620749A38005F0ECC /* LocationServiceProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		7354057A2074966C005F0ECC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7354057D2074966C005F0ECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7354057F2074966C005F0ECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7354058620749A38005F0ECC /* LocationServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		735405722074966C005F0ECC /* BusCatcher */ = {
 			isa = PBXGroup;
 			children = (
+				7354058520749A1B005F0ECC /* Utility */,
 				735405732074966C005F0ECC /* AppDelegate.swift */,
 				735405752074966C005F0ECC /* ViewController.swift */,
 				735405772074966C005F0ECC /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				7354057F2074966C005F0ECC /* Info.plist */,
 			);
 			path = BusCatcher;
+			sourceTree = "<group>";
+		};
+		7354058520749A1B005F0ECC /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7354058620749A38005F0ECC /* LocationServiceProvider.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7354058720749A38005F0ECC /* LocationServiceProvider.swift in Sources */,
 				735405762074966C005F0ECC /* ViewController.swift in Sources */,
 				735405742074966C005F0ECC /* AppDelegate.swift in Sources */,
 			);
