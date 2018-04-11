@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		730C206A207534E30027CEBB /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730C2069207534E30027CEBB /* VehicleManager.swift */; };
-		7313B48420759A97003F0F17 /* MapVehiclePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7313B48320759A97003F0F17 /* MapVehiclePoints.swift */; };
 		7313B48720759AE1003F0F17 /* VehiclePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7313B48620759AE1003F0F17 /* VehiclePoint.swift */; };
 		735405742074966C005F0ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735405732074966C005F0ECC /* AppDelegate.swift */; };
 		735405762074966C005F0ECC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735405752074966C005F0ECC /* ViewController.swift */; };
@@ -16,11 +15,16 @@
 		7354057B2074966C005F0ECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7354057A2074966C005F0ECC /* Assets.xcassets */; };
 		7354057E2074966C005F0ECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7354057C2074966C005F0ECC /* LaunchScreen.storyboard */; };
 		7354058720749A38005F0ECC /* LocationServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7354058620749A38005F0ECC /* LocationServiceProvider.swift */; };
+		73C71222207E5107007A983F /* VehicleEstimates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7121F207E5106007A983F /* VehicleEstimates.swift */; };
+		73C71223207E5107007A983F /* RouteStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C71220207E5106007A983F /* RouteStops.swift */; };
+		73C71224207E5107007A983F /* ScheduledTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C71221207E5107007A983F /* ScheduledTimes.swift */; };
+		73C71226207E561A007A983F /* RouteFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C71225207E561A007A983F /* RouteFinder.swift */; };
+		73C71228207E5C3A007A983F /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C71227207E5C3A007A983F /* BusStop.swift */; };
+		73C7122A207E5DFB007A983F /* SilverRoute.json in Resources */ = {isa = PBXBuildFile; fileRef = 73C71229207E5DFB007A983F /* SilverRoute.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		730C2069207534E30027CEBB /* VehicleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleManager.swift; sourceTree = "<group>"; };
-		7313B48320759A97003F0F17 /* MapVehiclePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVehiclePoints.swift; sourceTree = "<group>"; };
 		7313B48620759AE1003F0F17 /* VehiclePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePoint.swift; sourceTree = "<group>"; };
 		735405702074966C005F0ECC /* BusCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BusCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		735405732074966C005F0ECC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +34,12 @@
 		7354057D2074966C005F0ECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7354057F2074966C005F0ECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7354058620749A38005F0ECC /* LocationServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceProvider.swift; sourceTree = "<group>"; };
+		73C7121F207E5106007A983F /* VehicleEstimates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleEstimates.swift; sourceTree = "<group>"; };
+		73C71220207E5106007A983F /* RouteStops.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteStops.swift; sourceTree = "<group>"; };
+		73C71221207E5107007A983F /* ScheduledTimes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduledTimes.swift; sourceTree = "<group>"; };
+		73C71225207E561A007A983F /* RouteFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteFinder.swift; sourceTree = "<group>"; };
+		73C71227207E5C3A007A983F /* BusStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
+		73C71229207E5DFB007A983F /* SilverRoute.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SilverRoute.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,8 +56,10 @@
 		7313B48520759AD1003F0F17 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7313B48320759A97003F0F17 /* MapVehiclePoints.swift */,
-				7313B48620759AE1003F0F17 /* VehiclePoint.swift */,
+				73C7121E207E50B7007A983F /* RouteStops */,
+				73C7121D207E509D007A983F /* GetVehiclePoint */,
+				73C71227207E5C3A007A983F /* BusStop.swift */,
+				73C71229207E5DFB007A983F /* SilverRoute.json */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -79,7 +91,6 @@
 				7354057A2074966C005F0ECC /* Assets.xcassets */,
 				7354057C2074966C005F0ECC /* LaunchScreen.storyboard */,
 				7354057F2074966C005F0ECC /* Info.plist */,
-				730C2069207534E30027CEBB /* VehicleManager.swift */,
 			);
 			path = BusCatcher;
 			sourceTree = "<group>";
@@ -87,9 +98,29 @@
 		7354058520749A1B005F0ECC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				730C2069207534E30027CEBB /* VehicleManager.swift */,
 				7354058620749A38005F0ECC /* LocationServiceProvider.swift */,
+				73C71225207E561A007A983F /* RouteFinder.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		73C7121D207E509D007A983F /* GetVehiclePoint */ = {
+			isa = PBXGroup;
+			children = (
+				7313B48620759AE1003F0F17 /* VehiclePoint.swift */,
+			);
+			path = GetVehiclePoint;
+			sourceTree = "<group>";
+		};
+		73C7121E207E50B7007A983F /* RouteStops */ = {
+			isa = PBXGroup;
+			children = (
+				73C71220207E5106007A983F /* RouteStops.swift */,
+				73C71221207E5107007A983F /* ScheduledTimes.swift */,
+				73C7121F207E5106007A983F /* VehicleEstimates.swift */,
+			);
+			path = RouteStops;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +182,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73C7122A207E5DFB007A983F /* SilverRoute.json in Resources */,
 				7354057E2074966C005F0ECC /* LaunchScreen.storyboard in Resources */,
 				7354057B2074966C005F0ECC /* Assets.xcassets in Resources */,
 				735405792074966C005F0ECC /* Main.storyboard in Resources */,
@@ -164,10 +196,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7313B48420759A97003F0F17 /* MapVehiclePoints.swift in Sources */,
+				73C71228207E5C3A007A983F /* BusStop.swift in Sources */,
 				7354058720749A38005F0ECC /* LocationServiceProvider.swift in Sources */,
+				73C71223207E5107007A983F /* RouteStops.swift in Sources */,
+				73C71224207E5107007A983F /* ScheduledTimes.swift in Sources */,
 				735405762074966C005F0ECC /* ViewController.swift in Sources */,
+				73C71222207E5107007A983F /* VehicleEstimates.swift in Sources */,
 				730C206A207534E30027CEBB /* VehicleManager.swift in Sources */,
+				73C71226207E561A007A983F /* RouteFinder.swift in Sources */,
 				735405742074966C005F0ECC /* AppDelegate.swift in Sources */,
 				7313B48720759AE1003F0F17 /* VehiclePoint.swift in Sources */,
 			);

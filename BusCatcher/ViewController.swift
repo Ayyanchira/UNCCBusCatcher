@@ -19,34 +19,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         case Green = 20
     }
     
-    func didFetchVehicleLocation(vehiclePoints: [VehiclePoint]) {
-        for vehicle in vehiclePoints{
-            switch vehicle.routeID{
-            case BusRoute.Gold.rawValue:
-                print("Gold bus")
-                
-            case BusRoute.Silver.rawValue:
-                print("Silver route")
-                
-            case BusRoute.Green.rawValue:
-                print("Green route")
-                
-            case BusRoute.Paratransit.rawValue:
-                print("Paratransit route")
     
-            default:
-            print("Default case executed")
-        }
-    }
-    }
-    
-    func didFailedToFetchVehicaleLocation() {
-        let alert = UIAlertController(title: "No Bus data available at the moment", message: "Please try again later", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-            NSLog("The \"OK\" alert occured.")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
     
 
     @IBOutlet weak var estimatedWalkingTime: UILabel!
@@ -182,6 +155,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         let vehicleManager = VehicleManager()
         vehicleManager.delegate = self
         vehicleManager.requestVehicleData()
+    }
+    
+    // MARK: Vehicle Manager Delegate Methods
+    func didFetchVehicleLocation(vehiclePoints: [VehiclePoint]) {
+        for vehicle in vehiclePoints{
+            switch vehicle.routeID{
+            case BusRoute.Gold.rawValue:
+                print("Gold bus")
+                
+            case BusRoute.Silver.rawValue:
+                print("Silver route")
+                
+            case BusRoute.Green.rawValue:
+                print("Green route")
+                
+            case BusRoute.Paratransit.rawValue:
+                print("Paratransit route")
+                
+            default:
+                print("Default case executed")
+            }
+        }
+    }
+    
+    func didFailedToFetchVehicaleLocation() {
+        let alert = UIAlertController(title: "No Bus data available at the moment", message: "Please try again later", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
