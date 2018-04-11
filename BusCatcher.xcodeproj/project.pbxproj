@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		730C206A207534E30027CEBB /* VehicleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730C2069207534E30027CEBB /* VehicleManager.swift */; };
+		7313B48420759A97003F0F17 /* MapVehiclePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7313B48320759A97003F0F17 /* MapVehiclePoints.swift */; };
+		7313B48720759AE1003F0F17 /* VehiclePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7313B48620759AE1003F0F17 /* VehiclePoint.swift */; };
 		735405742074966C005F0ECC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735405732074966C005F0ECC /* AppDelegate.swift */; };
 		735405762074966C005F0ECC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735405752074966C005F0ECC /* ViewController.swift */; };
 		735405792074966C005F0ECC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735405772074966C005F0ECC /* Main.storyboard */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		730C2069207534E30027CEBB /* VehicleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleManager.swift; sourceTree = "<group>"; };
+		7313B48320759A97003F0F17 /* MapVehiclePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVehiclePoints.swift; sourceTree = "<group>"; };
+		7313B48620759AE1003F0F17 /* VehiclePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclePoint.swift; sourceTree = "<group>"; };
 		735405702074966C005F0ECC /* BusCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BusCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		735405732074966C005F0ECC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		735405752074966C005F0ECC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +43,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7313B48520759AD1003F0F17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7313B48320759A97003F0F17 /* MapVehiclePoints.swift */,
+				7313B48620759AE1003F0F17 /* VehiclePoint.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		735405672074966C005F0ECC = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +71,7 @@
 		735405722074966C005F0ECC /* BusCatcher */ = {
 			isa = PBXGroup;
 			children = (
+				7313B48520759AD1003F0F17 /* Model */,
 				7354058520749A1B005F0ECC /* Utility */,
 				735405732074966C005F0ECC /* AppDelegate.swift */,
 				735405752074966C005F0ECC /* ViewController.swift */,
@@ -63,6 +79,7 @@
 				7354057A2074966C005F0ECC /* Assets.xcassets */,
 				7354057C2074966C005F0ECC /* LaunchScreen.storyboard */,
 				7354057F2074966C005F0ECC /* Info.plist */,
+				730C2069207534E30027CEBB /* VehicleManager.swift */,
 			);
 			path = BusCatcher;
 			sourceTree = "<group>";
@@ -147,9 +164,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7313B48420759A97003F0F17 /* MapVehiclePoints.swift in Sources */,
 				7354058720749A38005F0ECC /* LocationServiceProvider.swift in Sources */,
 				735405762074966C005F0ECC /* ViewController.swift in Sources */,
+				730C206A207534E30027CEBB /* VehicleManager.swift in Sources */,
 				735405742074966C005F0ECC /* AppDelegate.swift in Sources */,
+				7313B48720759AE1003F0F17 /* VehiclePoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +309,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XU4EKNT3UT;
 				INFOPLIST_FILE = BusCatcher/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ideas2app.BusCatcher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XU4EKNT3UT;
 				INFOPLIST_FILE = BusCatcher/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ideas2app.BusCatcher;
 				PRODUCT_NAME = "$(TARGET_NAME)";

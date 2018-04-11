@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,23 +15,51 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BusCatcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mUd-nY-DSQ">
-                                <rect key="frame" x="0.0" y="20" width="375" height="319"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mUd-nY-DSQ">
+                                <rect key="frame" x="0.0" y="20" width="768" height="319"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="N5S-lV-2Df"/>
+                                </connections>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Expected travel time to reach nearest Bus stop : " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eph-rv-aVJ">
+                                <rect key="frame" x="16" y="347" width="194" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="PtC-dI-WRP"/>
+                                    <constraint firstAttribute="width" constant="194" id="pkP-rH-UPw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Estimated Time" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ab-kv-lUM">
+                                <rect key="frame" x="230" y="347" width="522" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="I2f-zk-7gJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="mUd-nY-DSQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="J59-Sk-j0d"/>
+                            <constraint firstItem="4Ab-kv-lUM" firstAttribute="leading" secondItem="eph-rv-aVJ" secondAttribute="trailing" constant="20" id="MMg-CD-cqW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mUd-nY-DSQ" secondAttribute="trailing" id="TEB-UX-PmU"/>
+                            <constraint firstItem="eph-rv-aVJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="ZH4-la-ZTA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mUd-nY-DSQ" secondAttribute="bottom" constant="328" id="fxi-ze-Nap"/>
                             <constraint firstItem="mUd-nY-DSQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lqx-fu-7ou"/>
+                            <constraint firstItem="eph-rv-aVJ" firstAttribute="top" secondItem="mUd-nY-DSQ" secondAttribute="bottom" constant="8" id="oqb-Px-LHx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4Ab-kv-lUM" secondAttribute="trailing" constant="16" id="pqd-Wo-Yyz"/>
+                            <constraint firstItem="4Ab-kv-lUM" firstAttribute="top" secondItem="eph-rv-aVJ" secondAttribute="top" id="uak-KH-rR2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="estimatedWalkingTime" destination="4Ab-kv-lUM" id="Uvo-Da-Ao5"/>
                         <outlet property="mapview" destination="mUd-nY-DSQ" id="iX5-eg-XmS"/>
                     </connections>
                 </viewController>
