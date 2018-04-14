@@ -9,7 +9,9 @@
 import Foundation
 import CoreLocation
 
-struct BusStop {
-    var name:String
-    var location:CLLocation
+struct BusStop: Codable{
+    let name: String
+    let location: Location
+    let routeLocation: Int
 }
+

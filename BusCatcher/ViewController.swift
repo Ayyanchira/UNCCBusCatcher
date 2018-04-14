@@ -10,110 +10,57 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate, VehicleManagerDelegate {
-    
+class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate, VehicleManagerDelegate, LocationServiceProtocol {
     enum BusRoute :Int{
         case Silver = 16
         case Gold = 14
         case Paratransit = 15
         case Green = 20
     }
-    
-    
-    
 
     @IBOutlet weak var estimatedWalkingTime: UILabel!
+    lazy var locationManager = CLLocationManager()
+    @IBOutlet weak var mapview: MKMapView!
+    let locationService = LocationService()
     var directionResponse:MKDirectionsResponse?
     var route:MKRoute?
     var userLocation:CLLocation?{
-        willSet{
-            
-        }
-        
         didSet{
-            print("called")
             mapview.showsUserLocation = true
             mapview.setUserTrackingMode(.follow, animated: true)
             calculateDistance()
         }
     }
 
-    lazy var locationManager = CLLocationManager()
-    
-    @IBOutlet weak var mapview: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //LocationServiceProvider.getLocationUpdate()
-        enableBasicLocationServices()
+        //enableBasicLocationServices()
+        locationService.delegate = self
+        locationService.enableBasicLocationServices()
         
+        loadSilverBusData()
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    public func enableBasicLocationServices() {
-        locationManager.delegate = self
+    func loadSilverBusData(){
         
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            // Request when-in-use authorization initially
-            locationManager.requestWhenInUseAuthorization()
-            break
-            
-        case .restricted, .denied:
-            // Disable location features
-            disableMyLocationBasedFeatures()
-            break
-            
-        case .authorizedWhenInUse, .authorizedAlways:
-            // Enable location features
-            enableMyWhenInUseFeatures()
-            break
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager,
-                         didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted, .denied:
-            disableMyLocationBasedFeatures()
-            break
-            
-        case .authorizedWhenInUse:
-            enableMyWhenInUseFeatures()
-            break
-            
-        case .notDetermined, .authorizedAlways:
-            break
-        }
-    }
-    
-    func enableMyWhenInUseFeatures() {
-        print("Enabling when in use feature")
-        fetchUserLocation()
-    }
-    
-    func disableMyLocationBasedFeatures() {
-        print("Disabling when in use feature")
-    }
-    
-    func fetchUserLocation() {
-        // Configure and start the service.
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.distanceFilter = 20  // In meters.
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        locationManager.stopUpdatingLocation()
-        if let userLocation = locations.first{
-            self.userLocation = userLocation
-            print("User is at lat : \(userLocation.coordinate.latitude.description), long : \(userLocation.coordinate.longitude.description)")
+        if let path = Bundle.main.path(forResource: "SilverRoute", ofType: "json") {
+            do {
+                //let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let url = URL(fileURLWithPath: path)
+                let data = try Data(contentsOf: url)
+                let jsonResult = try JSONDecoder().decode(BusStop.self, from: data)
+                print("Json data found and decoded...")
+                //TODO: map to obejcts used by tableview...
+               // if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult["person"] as? [Any] {
+                    // do stuff
+            } catch (let e){
+                // handle error
+                
+                print("Exception occured" + e.localizedDescription)
+            }
         }
     }
     
@@ -157,6 +104,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         vehicleManager.requestVehicleData()
     }
     
+    
+    //PRAGMA MARK: Location service delegate methods
+    func didRecieveLocationAccessAuthorization() {
+        print("Is Authorized")
+        locationService.fetchUserLocation()
+    }
+    
+    func didRecieveLocationAccessDenial() {
+        print("Is Denied of location access")
+    }
+    
+    func didRecieveUserLocation(location: CLLocation) {
+        print("User is at lat : \(location.coordinate.latitude.description), long : \(location.coordinate.longitude.description)")
+        userLocation = location
+    }
+    
     // MARK: Vehicle Manager Delegate Methods
     func didFetchVehicleLocation(vehiclePoints: [VehiclePoint]) {
         for vehicle in vehiclePoints{
@@ -186,6 +149,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
     
 }
 
