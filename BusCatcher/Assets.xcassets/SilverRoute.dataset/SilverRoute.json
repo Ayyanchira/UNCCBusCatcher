@@ -1,7 +1,7 @@
 [
   {
     "name": "CRI Deck",
-    "routeLocation": 365,
+    "routeLocation": 1,
     "location": {
       "latitude": 35.309683,
       "longitude": -80.744265
@@ -9,7 +9,7 @@
   },
   {
     "name": "PORTAL EAST",
-    "routeLocation": 366,
+    "routeLocation": 2,
     "location": {
       "latitude": 35.311583,
       "longitude": -80.742442
@@ -17,7 +17,7 @@
   },
   {
     "name": "Duke Centennial Hall",
-    "routeLocation": 367,
+    "routeLocation": 3,
     "location": {
       "latitude": 35.312267,
       "longitude": -80.741747
@@ -25,7 +25,7 @@
   },
   {
     "name": "Grigg Hall East",
-    "routeLocation": 368,
+    "routeLocation": 4,
     "location": {
       "latitude": 35.310971,
       "longitude": -80.741571
@@ -33,7 +33,7 @@
   },
   {
     "name": "EPIC SOUTH",
-    "routeLocation": 369,
+    "routeLocation": 5,
     "location": {
       "latitude": 35.30972,
       "longitude": -80.741775
@@ -41,7 +41,7 @@
   },
   {
     "name": "Athletics Complex East",
-    "routeLocation": 370,
+    "routeLocation": 6,
     "location": {
       "latitude": 35.307279,
       "longitude": -80.739443
@@ -49,7 +49,7 @@
   },
   {
     "name": "Woodward Hall",
-    "routeLocation": 371,
+    "routeLocation": 7,
     "location": {
       "latitude": 35.307935,
       "longitude": -80.734811
@@ -57,7 +57,7 @@
   },
   {
     "name": "Popp Martin Student Union East",
-    "routeLocation": 372,
+    "routeLocation": 8,
     "location": {
       "latitude": 35.308035,
       "longitude": -80.732789
@@ -65,7 +65,7 @@
   },
   {
     "name": "Auxiliary Services",
-    "routeLocation": 373,
+    "routeLocation": 9,
     "location": {
       "latitude": 35.308016,
       "longitude": -80.73055
@@ -73,7 +73,7 @@
   },
   {
     "name": "Hickory Hall",
-    "routeLocation": 374,
+    "routeLocation": 10,
     "location": {
       "latitude": 35.30908,
       "longitude": -80.729252
@@ -81,7 +81,7 @@
   },
   {
     "name": "Student Health Center",
-    "routeLocation": 375,
+    "routeLocation": 11,
     "location": {
       "latitude": 35.309624,
       "longitude": -80.729243
@@ -89,7 +89,7 @@
   },
   {
     "name": "Martin Hall",
-    "routeLocation": 355,
+    "routeLocation": 12,
     "location": {
       "latitude": 35.310307,
       "longitude": -80.726702
@@ -97,7 +97,7 @@
   },
   {
     "name": "Lot 6",
-    "routeLocation": 356,
+    "routeLocation": 13,
     "location": {
       "latitude": 35.309171,
       "longitude": -80.725157
@@ -105,7 +105,7 @@
   },
   {
     "name": "Lot 5A",
-    "routeLocation": 357,
+    "routeLocation": 14,
     "location": {
       "latitude": 35.307193,
       "longitude": -80.725387
@@ -113,7 +113,7 @@
   },
   {
     "name": "East Deck 2",
-    "routeLocation": 358,
+    "routeLocation": 15,
     "location": {
       "latitude": 35.305891,
       "longitude": -80.72745
@@ -121,7 +121,7 @@
   },
   {
     "name": "Fretwell",
-    "routeLocation": 359,
+    "routeLocation": 16,
     "location": {
       "latitude": 35.307208,
       "longitude": -80.729325
@@ -129,7 +129,7 @@
   },
   {
     "name": "PaTS",
-    "routeLocation": 360,
+    "routeLocation": 17,
     "location": {
       "latitude": 35.308144,
       "longitude": -80.730213
@@ -137,7 +137,7 @@
   },
   {
     "name": "Popp Martin Student Union",
-    "routeLocation": 361,
+    "routeLocation": 18,
     "location": {
       "latitude": 35.308188,
       "longitude": -80.732431
@@ -145,7 +145,7 @@
   },
   {
     "name": "Athletics Complex",
-    "routeLocation": 362,
+    "routeLocation": 20,
     "location": {
       "latitude": 35.307564,
       "longitude": -80.739918
@@ -153,7 +153,7 @@
   },
   {
     "name": "EPIC NORTH",
-    "routeLocation": 363,
+    "routeLocation": 21,
     "location": {
       "latitude": 35.309374,
       "longitude": -80.741315
@@ -161,7 +161,7 @@
   },
   {
     "name": "Grigg Hall West",
-    "routeLocation": 364,
+    "routeLocation": 22,
     "location": {
       "latitude": 35.310927,
       "longitude": -80.741441
@@ -169,7 +169,7 @@
   },
   {
     "name": "PORTAL WEST",
-    "routeLocation": 365,
+    "routeLocation": 23,
     "location": {
       "latitude": 35.311657,
       "longitude": -80.742544

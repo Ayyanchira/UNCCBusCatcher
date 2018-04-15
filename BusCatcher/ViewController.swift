@@ -10,7 +10,9 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate, VehicleManagerDelegate, LocationServiceProtocol {
+class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate, LocationServiceProtocol, StopArrivalDelegate {
+    
+    
     enum BusRoute :Int{
         case Silver = 16
         case Gold = 14
@@ -18,6 +20,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         case Green = 20
     }
 
+    @IBOutlet weak var nearestBusStopLabel: UILabel!
+    
+    @IBOutlet weak var walkingTimeToReachNearestBusStopLabel: UILabel!
+    
+    @IBOutlet weak var busTakeTimeLabel: UILabel!
+    var nearestBusStop : BusStop?
+    var nearestBusStopWalkingTime:Double?
+    var allBusStops:[BusStop]?
     @IBOutlet weak var estimatedWalkingTime: UILabel!
     lazy var locationManager = CLLocationManager()
     @IBOutlet weak var mapview: MKMapView!
@@ -28,20 +38,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         didSet{
             mapview.showsUserLocation = true
             mapview.setUserTrackingMode(.follow, animated: true)
-            calculateDistance()
+            //calculateDistance()
+            loadSilverBusData()
         }
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //LocationServiceProvider.getLocationUpdate()
-        //enableBasicLocationServices()
         locationService.delegate = self
         locationService.enableBasicLocationServices()
-        
-        loadSilverBusData()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     func loadSilverBusData(){
@@ -51,26 +56,53 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
                 //let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let url = URL(fileURLWithPath: path)
                 let data = try Data(contentsOf: url)
-                let jsonResult = try JSONDecoder().decode(BusStop.self, from: data)
-                print("Json data found and decoded...")
-                //TODO: map to obejcts used by tableview...
-               // if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let person = jsonResult["person"] as? [Any] {
-                    // do stuff
+                allBusStops =  try JSONDecoder().decode([BusStop].self, from: data)
+                for busStop in allBusStops!{
+                    locationService.calculateDistance(userLocation: userLocation!, busStop: busStop)
+                }
             } catch (let e){
-                // handle error
-                
                 print("Exception occured" + e.localizedDescription)
             }
         }
     }
     
-    func calculateDistance() {
+    @IBAction func reloadMaps(_ sender: UIButton) {
+        //loadSilverBusData()
+        viewDidLoad()
+    }
+    func estimatedTravelTimeForBusStop(timeInterval: TimeInterval, busStop:BusStop) {
+    
+        if nearestBusStop == nil && nearestBusStopWalkingTime == nil{
+            nearestBusStop = busStop
+            nearestBusStopWalkingTime = timeInterval
+        }else{
+            if let walkingTime = nearestBusStopWalkingTime{
+                if timeInterval < walkingTime{
+                    nearestBusStop = busStop
+                    nearestBusStopWalkingTime = timeInterval
+                    print("Updating nearest bus stop. It is \(busStop.name)")
+                    self.nearestBusStopLabel.text = busStop.name
+                }
+            }
+        }
+        if let lastBusStop = allBusStops?.last{
+            if busStop.name == lastBusStop.name {
+                //showPath(busStop: nearestBusStop!)
+                
+                let stopArrival = StopArrival()
+                stopArrival.delegate = self
+                stopArrival.getStopEstimateForBusStop(busStop: nearestBusStop!)
+            }
+        }
+    }
+    
+    func showPath(busStop: BusStop, withTimeInfoFrom stopArrival:StopArrivals) {
+        print("Show Path is called now")
         let directionRequest = MKDirectionsRequest()
         directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: (userLocation?.coordinate)!))
         
-//        35.312211, -80.741745
-        let dukeCentennial = CLLocationCoordinate2D(latitude: 35.312211, longitude: -80.741745)
-        directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: dukeCentennial))
+        let busStopLocation = CLLocationCoordinate2D(latitude: busStop.location.latitude, longitude: busStop.location.longitude)
+        directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: busStopLocation))
         
         directionRequest.transportType = .walking
         let directions = MKDirections(request: directionRequest)
@@ -81,11 +113,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
 //                // Get whichever currentRoute you'd like, ex. 0
                 self.route = self.directionResponse?.routes[0]
                 DispatchQueue.main.async {
-                    self.estimatedWalkingTime.text = "Around \(Int((self.route?.expectedTravelTime)!)/60) minute(s)."
+                    var userTimeToLeaveFromHisPlace = 0
+                    var timeTakenByBus:Int?
+                    self.nearestBusStopLabel.text = busStop.name
+                    let timeToReachBusStop = Int((self.route?.expectedTravelTime)!/60)
+                    self.walkingTimeToReachNearestBusStopLabel.text = "\(timeToReachBusStop) minutes"
+                    
+                    if let timeTakenByBusOne = stopArrival.times?.first?.seconds{
+                        timeTakenByBus = timeTakenByBusOne/60
+                    }
+                    
+                    
+                    //if let timeTakenByBusOne = (stopArrival.times?.first?.seconds)!/60
+                    if timeTakenByBus != nil,
+                    timeTakenByBus! > timeToReachBusStop{
+                        self.busTakeTimeLabel.text = "\(timeTakenByBus!) minute(s)"
+                        userTimeToLeaveFromHisPlace = timeTakenByBus! - timeToReachBusStop
+                        //self.estimatedWalkingTime.text = "Around \(Int((self.route?.expectedTravelTime)!)/60) minute(s) to reach \(busStop.name).
+                        self.estimatedWalkingTime.text = "Leave in \(userTimeToLeaveFromHisPlace) minutes"
+                    }else{
+                        if let timeTakenByBusTwo = (stopArrival.times![1] as Times).seconds{
+                            timeTakenByBus = timeTakenByBusTwo/60
+                            self.busTakeTimeLabel.text = "\(timeTakenByBus!) minute(s)"
+                            userTimeToLeaveFromHisPlace = timeTakenByBus! - timeToReachBusStop
+                            //self.estimatedWalkingTime.text = "Around \(Int((self.route?.expectedTravelTime)!)/60) minute(s) to reach \(busStop.name)."
+                            self.estimatedWalkingTime.text = "\(userTimeToLeaveFromHisPlace) minute(s)"
+                        }
+                    }
                     self.mapview.add((self.route?.polyline)!, level: .aboveLabels)
-                    self.getVehicleData()
+                    //self.getVehicleData()
                 }
-                
             }
         }
     }
@@ -98,11 +155,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         
     }
     
-    func getVehicleData() {
-        let vehicleManager = VehicleManager()
-        vehicleManager.delegate = self
-        vehicleManager.requestVehicleData()
-    }
+//    func getVehicleData() {
+//        let vehicleManager = VehicleManager()
+//        vehicleManager.delegate = self
+//        vehicleManager.requestVehicleData()
+//    }
     
     
     //PRAGMA MARK: Location service delegate methods
@@ -120,27 +177,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         userLocation = location
     }
     
-    // MARK: Vehicle Manager Delegate Methods
-    func didFetchVehicleLocation(vehiclePoints: [VehiclePoint]) {
-        for vehicle in vehiclePoints{
-            switch vehicle.routeID{
-            case BusRoute.Gold.rawValue:
-                print("Gold bus")
-                
-            case BusRoute.Silver.rawValue:
-                print("Silver route")
-                
-            case BusRoute.Green.rawValue:
-                print("Green route")
-                
-            case BusRoute.Paratransit.rawValue:
-                print("Paratransit route")
-                
-            default:
-                print("Default case executed")
-            }
-        }
-    }
+//    // MARK: Vehicle Manager Delegate Methods
+//    func didFetchVehicleLocation(vehiclePoints: [VehiclePoint]) {
+//        for vehicle in vehiclePoints{
+//            switch vehicle.routeID{
+//            case BusRoute.Gold.rawValue:
+//                print("Gold bus")
+//
+//            case BusRoute.Silver.rawValue:
+//                print("Silver route")
+//                print("\(vehicle.name) is having time stamp \(vehicle.timeStamp) and heading to point\(vehicle.heading)")
+//
+//            case BusRoute.Green.rawValue:
+//                print("Green route")
+//
+//            case BusRoute.Paratransit.rawValue:
+//                print("Paratransit route")
+//
+//            default:
+//                print("Default case executed")
+//            }
+//        }
+//    }
     
     func didFailedToFetchVehicaleLocation() {
         let alert = UIAlertController(title: "No Bus data available at the moment", message: "Please try again later", preferredStyle: .alert)
@@ -150,7 +208,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDeleg
         self.present(alert, animated: true, completion: nil)
     }
     
+    //PRAGMA MARK: Stop Arrival Delegate Methods
     
+    func didRecieveBusStopEstimatesFor(busStop: BusStop, stopArrival: StopArrivals){
+        if (stopArrival.times?.count)! > 1 {
+//            print("Bus arrives at stop in \((stopArrival.times?.first?.seconds)!/60) minutes")
+            showPath(busStop: busStop, withTimeInfoFrom:stopArrival)
+        }else{
+            let alert = UIAlertController(title: "No Buses", message: "No Buses found near you. Please try again later", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
+    func refreshScreen(){
+        
+    }
 }
 

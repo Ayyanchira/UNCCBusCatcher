@@ -8,12 +8,14 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 protocol LocationServiceProtocol {
     
     func didRecieveLocationAccessAuthorization()
     func didRecieveLocationAccessDenial()
     func didRecieveUserLocation(location: CLLocation)
+    func estimatedTravelTimeForBusStop(timeInterval:TimeInterval, busStop:BusStop)
 }
 
 
@@ -83,4 +85,23 @@ class LocationService :NSObject, CLLocationManagerDelegate {
         }
     }
     
+    func calculateDistance(userLocation: CLLocation, busStop : BusStop) {
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = MKMapItem(placemark: MKPlacemark(coordinate: (userLocation.coordinate)))
+        let busStopLocation = CLLocationCoordinate2D(latitude: busStop.location.latitude, longitude: busStop.location.longitude)
+        directionRequest.destination = MKMapItem(placemark: MKPlacemark(coordinate: busStopLocation))
+        directionRequest.transportType = .walking
+        
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate { (response, error) in
+            if error == nil {
+                let directionResponse:MKDirectionsResponse? = response
+                let route:MKRoute? = directionResponse?.routes[0]
+                self.delegate?.estimatedTravelTimeForBusStop(timeInterval: (route?.expectedTravelTime)!, busStop: busStop)
+            }else{
+                print(error.debugDescription)
+            }
+        }
+    }
 }

@@ -15,7 +15,6 @@ protocol VehicleManagerDelegate {
 }
 
 class VehicleManager: NSObject {
-    var parentView:UIViewController?
     var delegate:VehicleManagerDelegate?
     func requestVehicleData() {
         let request = NSMutableURLRequest(url: NSURL(string: "http://nextride.uncc.edu/Services/JSONPRelay.svc/GetMapVehiclePoints")! as URL,
